@@ -1,0 +1,10 @@
+.env                    
+logs/                  
+postgres_data/         
+redis_data/ 
+__pycache__/           
+*.pyc                  
+.pytest_cache/        
+.coverage
+docker-compose.override.yml 
+.vscode/                     
