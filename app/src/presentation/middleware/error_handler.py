@@ -3,6 +3,7 @@ from src.domain.auth.exceptions.exceptions_email import EmailServiceError, RateL
 from src.domain.auth.exceptions.exceptions_hash import WrongPasswordError
 from src.domain.auth.exceptions.exceptions_jwt import JWTServiceError, CredentialError, ExpiredCredentialError, InvalidPayloadError, RefreshNotFoundError
 from src.domain.parsing.exceptions import APIRequestError, FlightNotFoundError, InvalidAPIResponseError
+from src.domain.ai.exceptions import ConnectionError, VoiceProcessingError, GeminiTimeoutError, GeminiUnavailableError, GeminiuUnauthorizedError
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request, status
 import logging
@@ -119,6 +120,7 @@ def setup_exception_handler(app: FastAPI):
             content={"message": str(exc)}
         )
     
+    # Parsing exceptions
     @app.exception_handler(APIRequestError)
     async def parsing_api_request_error_handler(request: Request, exc: APIRequestError):
         logger.error("Flight API request failed: %s | URL: %s | IP: %s", 
@@ -157,6 +159,91 @@ def setup_exception_handler(app: FastAPI):
             content={
                 "message": "Flight data service returned invalid response. Our team has been notified.",
                 "error_type": "data_format_error"
+            }
+        )
+    
+    # AI Voice exceptions
+    @app.exception_handler(VoiceProcessingError)
+    async def voice_processing_error_handler(request: Request, exc: VoiceProcessingError):
+        logger.error("Voice processing error: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={
+                "message": str(exc),
+                "error_type": "voice_processing_error",
+                "suggestions": [
+                    "Check your audio quality",
+                    "Speak clearly and slowly",
+                    "Use supported audio format (MP3, WAV, WEBM)",
+                    "Reduce background noise"
+                ]
+            }
+        )
+    
+    @app.exception_handler(GeminiuUnauthorizedError)
+    async def gemini_unauthorized_error_handler(request: Request, exc: GeminiuUnauthorizedError):
+        logger.error("Gemini API unauthorized: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={
+                "message": "AI service authentication failed. Our team has been notified.",
+                "error_type": "ai_service_unavailable",
+                "suggestions": [
+                    "Try again in a few minutes",
+                    "Use regular text search instead"
+                ]
+            }
+        )
+    
+    @app.exception_handler(GeminiUnavailableError)
+    async def gemini_unavailable_error_handler(request: Request, exc: GeminiUnavailableError):
+        logger.error("Gemini service unavailable: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={
+                "message": "AI service temporarily unavailable. Please try again later.",
+                "error_type": "ai_service_unavailable",
+                "suggestions": [
+                    "Try again in a few minutes",
+                    "Use regular text search instead"
+                ]
+            }
+        )
+    
+    @app.exception_handler(GeminiTimeoutError)
+    async def gemini_timeout_error_handler(request: Request, exc: GeminiTimeoutError):
+        logger.error("Gemini request timeout: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_408_REQUEST_TIMEOUT,
+            content={
+                "message": "Voice processing timed out. Please try with a shorter audio file.",
+                "error_type": "processing_timeout",
+                "suggestions": [
+                    "Record a shorter message (under 30 seconds)",
+                    "Reduce file size",
+                    "Try again with better internet connection"
+                ]
+            }
+        )
+    
+    @app.exception_handler(ConnectionError)
+    async def connection_error_handler(request: Request, exc: ConnectionError):
+        logger.error("Network connection error: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={
+                "message": "Network connection failed. Please check your internet and try again.",
+                "error_type": "network_error",
+                "suggestions": [
+                    "Check your internet connection",
+                    "Try again in a few moments",
+                    "Use regular text search if the problem persists"
+                ]
             }
         )
     
