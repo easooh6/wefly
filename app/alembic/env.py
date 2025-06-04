@@ -8,7 +8,9 @@ from alembic import context
 # Импорт вашей базовой модели
 from src.infrastructure.db.models.base import Base
 from src.infrastructure.db.models.user_model import User
+from src.infrastructure.db.models.ticket import Tickets
 from src.infrastructure.db.settings import settings_db
+
 
 # this is the Alembic Config object
 config = context.config

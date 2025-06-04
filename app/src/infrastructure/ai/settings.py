@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class AI_Settings(BaseSettings):
     
     GEMINI_API_KEY: str
-    GEMINI_MODEL: str = "gemini-2.5-flash-preview-04-17"
+    GEMINI_MODEL: str = "gemini-1.5-flash"
     
     
     AUDIO_MAX_SIZE_MB: int = 10

@@ -2,9 +2,16 @@ from datetime import datetime
 
 
 class Prompts:
+    @staticmethod
+    def get_universal_prompt():
+        now = datetime.now()
+        today_str = now.strftime("%d.%m.%Y")
+        year_str = now.strftime("%Y")
 
-    universal_prompt = """
+        return f"""
         Ты — ассистент для поиска авиабилетов.  
+        Сегодняшняя дата: {today_str}. Сейчас {year_str} год.
+
         Проанализируй голосовое сообщение и извлеки данные о перелёте.
         
         АВТОМАТИЧЕСКИ ОПРЕДЕЛИ ТИП ПОИСКА:
@@ -14,7 +21,7 @@ class Prompts:
         СТРУКТУРА JSON (В ЗАВИСИМОСТИ ОТ ТИПА):
         
         ДЛЯ ПОИСКА В ОДНУ СТОРОНУ (segmentsCount: 1):
-        {
+        {{
             "searchGroupId": "standard",
             "segmentsCount": 1,
             "date[0]": "DD.MM.YYYY",
@@ -25,10 +32,10 @@ class Prompts:
             "childCount": число от 0 до 9,
             "infantsWithSeatCount": 0,
             "infantsWithoutSeatCount": 0
-        }
+        }}
         
         ДЛЯ ПОИСКА ТУДА-ОБРАТНО (segmentsCount: 2):
-        {
+        {{
             "searchGroupId": "standard",
             "segmentsCount": 2,
             "date[0]": "DD.MM.YYYY",
@@ -42,10 +49,10 @@ class Prompts:
             "childCount": число от 0 до 9,
             "infantsWithSeatCount": 0,
             "infantsWithoutSeatCount": 0
-        }
+        }}
 
         КОДЫ ГОРОДОВ (используй только эти):
-        {
+        {{
             "AKX": "Актобе",
             "ALA": "Алматы",
             "NQZ": "Астана, Нурсултан",
@@ -63,12 +70,12 @@ class Prompts:
             "HSA": "Туркестан",
             "URA": "Уральск",
             "CIT": "Шымкент"
-        }
+        }}
 
         ВАЖНО: 
         - Отвечай ТОЛЬКО валидным JSON без дополнительных объяснений!
         - Если город не найден в списке → пустая строка ""
         - Для туда-обратно: origin-city-code[1] = destination-city-code[0]
         - Для туда-обратно: destination-city-code[1] = origin-city-code[0]
-        - Используй %s как сегодняшнюю дату
-        """% datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+
+        """

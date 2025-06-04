@@ -1,31 +1,31 @@
+from google import genai
+from google.genai.types import GenerateContentConfig, HttpOptions, Part
 from .settings import settings
-import google.generativeai as genai
-import asyncio
-
+import base64
 
 
 class GeminiClient:
-
     def __init__(self):
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        self.model = genai.GenerativeModel(
-            model_name=settings.GEMINI_MODEL,
-            generation_config={
-                "temperature": settings.TEMPERATURE,
-                "max_output_tokens": settings.MAX_RESPONSE_LENGTH
-            }
-        )
-    # убрать event_loop нахуй, почитать что лучше
-    async def transcribe_voice(self, audio_bytes: bytes, mime_type: str, prompt: str) -> str:
-        audio_part = {
-            "mime_type": mime_type,
-            "data": audio_bytes
-        }
-        loop = asyncio.get_event_loop()
-        response = await loop.run_in_executor(
-            None, 
-            lambda: self.model.generate_content([prompt, audio_part])
+        self.client = genai.Client(
+            api_key=settings.GEMINI_API_KEY,
+            http_options=HttpOptions(api_version="v1")
         )
 
+    async def transcribe_voice(self, audio_bytes: bytes, mime_type: str, prompt: str) -> str:
+        audio_b64 = base64.b64encode(audio_bytes).decode('utf-8')
+        contents = [
+            Part(text=prompt),  
+            Part(inline_data={"mime_type": mime_type, "data": audio_b64}) 
+        ]
+        
+        response = await self.client.aio.models.generate_content(
+            model=settings.GEMINI_MODEL,
+            contents=contents,
+            config=GenerateContentConfig(
+                temperature=settings.TEMPERATURE,
+                max_output_tokens=settings.MAX_RESPONSE_LENGTH
+            )
+        )
+        
         return response.text
-    
+

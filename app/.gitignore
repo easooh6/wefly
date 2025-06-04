@@ -7,4 +7,5 @@ __pycache__/
 .pytest_cache/        
 .coverage
 docker-compose.override.yml 
-.vscode/                     
+.vscode/
+venv/                     
