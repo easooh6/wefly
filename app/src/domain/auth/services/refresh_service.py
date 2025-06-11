@@ -1,5 +1,5 @@
-from src.infrastructure.JWT.jwt_manager import JWTManager
-from src.domain.auth.exceptions.exceptions_jwt import (RefreshNotFoundError, ExpiredCredentialError,
+from src.infrastructure.auth.JWT.jwt_manager import JWTManager
+from src.domain.auth.exceptions.jwt import (RefreshNotFoundError, ExpiredCredentialError,
                                                        JWTServiceError, CredentialError,
                                                          InvalidPayloadError)
 from src.domain.auth.dto.domain.jwt import TokenDTO

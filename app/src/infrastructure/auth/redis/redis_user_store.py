@@ -1,6 +1,6 @@
 import json
 from fastapi import Depends
-from .redis_pool import get_redis_client
+from src.infrastructure.common.redis.redis_pool import get_redis_client
 from src.domain.auth.dto.request.user_create import UserCreateDTO
 import logging
 

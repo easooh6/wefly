@@ -1,8 +1,8 @@
-from src.infrastructure.redis.redis_limiter import RedisLimiter
+from src.infrastructure.auth.redis.redis_limiter import RedisLimiter
 from fastapi import Depends
 from src.domain.auth.dto.request.verify_code import VerifyCodeDTO
 from src.domain.auth.dto.response.email_code import EmailCodeDTO
-from src.domain.auth.exceptions.exceptions_email import WrongVerificationCodeError, VerificationCodeTimeExceeded
+from src.domain.auth.exceptions.email import WrongVerificationCodeError, VerificationCodeTimeExceeded
 
 
 class VerifyEmailCode:

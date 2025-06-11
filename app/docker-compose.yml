@@ -94,7 +94,7 @@ services:
     build: .
     container_name: wefly_celery_worker
     restart: unless-stopped
-    command: python celery_worker.py
+    command:  celery -A src.infrastructure.common.celery.celery_app worker --loglevel=info
     environment:
       # Database (нужно для некоторых задач)
       DB_HOST: postgres
@@ -115,6 +115,11 @@ services:
       EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
     volumes:
       - ./logs:/app/logs
+      # ✅ ГЛАВНОЕ - монтируем весь код как у API!
+      - .:/app
+      # ✅ Исключаем кэш для производительности
+      - /app/__pycache__
+      - /app/.git
     depends_on:
       postgres:
         condition: service_healthy
@@ -128,13 +133,18 @@ services:
     build: .
     container_name: wefly_flower
     restart: unless-stopped
-    command: celery -A src.infrastructure.celery.celery_app flower --port=5555
+    command: celery -A src.infrastructure.common.celery.celery_app flower --port=5555
     ports:
       - "5555:5555"
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_DB: ${REDIS_DB}
+    volumes:
+      # ✅ Добавить монтирование кода
+      - .:/app
+      - /app/__pycache__
+      - /app/.git
     depends_on:
       - redis
     networks:

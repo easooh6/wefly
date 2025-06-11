@@ -1,14 +1,14 @@
-from src.infrastructure.celery.tasks import send_verification_email
+from src.infrastructure.auth.celery.email import send_verification_email
 from src.domain.auth.dto.response.created_user import CreatedUserDTO
 from fastapi import Depends
 from .verify_email import VerifyEmailCode
 from src.infrastructure.db.repositories.user_crud import UserCRUD
 from src.domain.auth.dto.request.verify_code import VerifyCodeDTO
-from src.domain.auth.exceptions.exceptions_email import WrongVerificationCodeError, VerificationCodeTimeExceeded
-from src.domain.auth.exceptions.exceptions_db import UserAlreadyExists
+from src.domain.auth.exceptions.email import WrongVerificationCodeError, VerificationCodeTimeExceeded
+from src.domain.auth.exceptions.db import UserAlreadyExists
 from sqlalchemy.exc import IntegrityError
 from src.infrastructure.db.models.user_model import User
-from src.infrastructure.redis.redis_user_store import RedisUserStore
+from src.infrastructure.auth.redis.redis_user_store import RedisUserStore
 import logging
 
 logger = logging.getLogger('wefly.register')

@@ -1,26 +1,24 @@
-from src.infrastructure.db.repositories.tickets_crud import Tickets_CRUD
-from src.infrastructure.db.models.ticket import Tickets
-from fastapi import Depends
-from src.domain.user.dto.entities.created_ticket import CreatedTicketDTO
 from src.domain.user.dto.requests.ticket import TicketRequestDTO
-from sqlalchemy.exc import (OperationalError,IntegrityError,
-                            ProgrammingError,SQLAlchemyError)
+from src.domain.user.exceptions import (TicketError, TicketAlreadyExistsError, TicketNotFoundError,
+                                        TicketRepositoryError, InvalidTicketDataError, DatabaseConnectionError,
+                                        TicketNotAvailableError)
+from src.domain.user.interfaces.tickets import TicketInterface
+from src.domain.user.dto.entities.tickets import UserTicketDTO
+from src.domain.user.dto.responses.ticket import UserTicketResponseDTO
+from typing import List
 
 class TicketsService:
 
-    def __init__(self, crud: Tickets_CRUD = Depends()):
-        self.crud = crud
+    def __init__(self, infrastructure: TicketInterface):
+        self.inf = infrastructure
     
-    async def add_ticket(self, data: TicketRequestDTO) -> CreatedTicketDTO:
-        try:
-            ticket= Tickets(**data.model_dump())
-            await self.crud.add_ticket(ticket)
-            return CreatedTicketDTO(id=ticket.id, user_id=ticket.user_id)
-        except OperationalError:
-            raise
-        except IntegrityError:
-            raise
-        except ProgrammingError:
-            raise
-        except SQLAlchemyError:
-            raise
+    async def add_ticket(self, data: UserTicketDTO) -> UserTicketResponseDTO:
+        result = await self.inf.add_ticket(data)
+        return result
+    
+    async def select_user_ticket(self, user_id: int) -> List[UserTicketResponseDTO]:
+        result = await self.inf.select_user_ticket(user_id)
+        if not result:
+            raise TicketNotFoundError
+        return result
+    

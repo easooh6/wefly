@@ -4,7 +4,7 @@ from typing import Optional, List, Dict, Any
 
 class SearchResponse(BaseModel):
 
-    id: str | int = Field(..., description="id рейса")
+    id: str = Field(..., description="id рейса")
     name: str = Field(..., description="Название рейса")
     race_number: str = Field(..., alias="racenumber", description="Номер рейса")
     
@@ -48,7 +48,7 @@ class SearchResponse(BaseModel):
                 try:
                     parsed_date = datetime.strptime(v, fmt)
                     # Возвращаем в формате DD.MM.YYYY
-                    return parsed_date.strftime('%d.%m.%Y')
+                    return parsed_date.strftime('%Y-%m-%d')
                 except ValueError:
                     continue
             
@@ -56,7 +56,7 @@ class SearchResponse(BaseModel):
         
         # Если datetime объект
         elif isinstance(v, datetime):
-            return v.strftime('%d.%m.%Y')
+            return v.strftime('%Y-%m-%d')
         
         else:
             raise ValueError(f"Неверный тип даты: {type(v)}")

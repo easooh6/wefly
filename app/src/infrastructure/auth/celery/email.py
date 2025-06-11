@@ -1,4 +1,4 @@
-from .celery_app import celery_app
+from src.infrastructure.common.celery.celery_app import celery_app
 from src.infrastructure.auth.email.send_email import SendEmailVerification
 
 from src.domain.auth.dto.request.user_create import UserCreateDTO

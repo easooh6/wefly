@@ -1,8 +1,8 @@
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer
-from src.infrastructure.JWT.jwt_manager import JWTManager
+from src.infrastructure.auth.JWT.jwt_manager import JWTManager
 
-from src.domain.auth.exceptions.exceptions_jwt import (
+from src.domain.auth.exceptions.jwt import (
     CredentialError, 
     ExpiredCredentialError, 
     InvalidPayloadError

@@ -1,9 +1,10 @@
-from src.domain.auth.exceptions.exceptions_db import DBServiceError, UserAlreadyExists, UserNotFound
-from src.domain.auth.exceptions.exceptions_email import EmailServiceError, RateLimitExceededError, WrongVerificationCodeError, VerificationCodeTimeExceeded
-from src.domain.auth.exceptions.exceptions_hash import WrongPasswordError
-from src.domain.auth.exceptions.exceptions_jwt import JWTServiceError, CredentialError, ExpiredCredentialError, InvalidPayloadError, RefreshNotFoundError
+from src.domain.auth.exceptions.db import DBServiceError, UserAlreadyExists, UserNotFound
+from src.domain.auth.exceptions.email import EmailServiceError, RateLimitExceededError, WrongVerificationCodeError, VerificationCodeTimeExceeded
+from src.domain.auth.exceptions.hash import WrongPasswordError
+from src.domain.auth.exceptions.jwt import JWTServiceError, CredentialError, ExpiredCredentialError, InvalidPayloadError, RefreshNotFoundError
 from src.domain.parsing.exceptions import APIRequestError, FlightNotFoundError, InvalidAPIResponseError
 from src.domain.ai.exceptions import ConnectionError, VoiceProcessingError, GeminiTimeoutError, GeminiUnavailableError, GeminiuUnauthorizedError
+from src.domain.user.exceptions import TicketError, TicketAlreadyExistsError, TicketNotAvailableError, TicketNotFoundError, TicketRepositoryError, InvalidTicketDataError, DatabaseConnectionError
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request, status
 import logging
@@ -218,7 +219,7 @@ def setup_exception_handler(app: FastAPI):
         logger.error("Gemini request timeout: %s | URL: %s | IP: %s", 
                     str(exc), request.url, request.client.host)
         return JSONResponse(
-            status_code=status.HTTP_408_REQUEST_TIMEOUT,
+            status_code=status.HTTP_408_REQUEST_TIME,
             content={
                 "message": "Voice processing timed out. Please try with a shorter audio file.",
                 "error_type": "processing_timeout",
@@ -244,6 +245,40 @@ def setup_exception_handler(app: FastAPI):
                     "Try again in a few moments",
                     "Use regular text search if the problem persists"
                 ]
+            }
+        )
+    
+    #ticket error handler
+    @app.exception_handler(TicketAlreadyExistsError)
+    async def ticket_already_exists_error_handler(request: Request, exc: TicketAlreadyExistsError):
+        logger.warning("Ticket already exists: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={
+                "message":"Ticket already exists."
+            }
+        )
+    
+    @app.exception_handler(TicketNotFoundError)
+    async def ticket_not_found_error_handler(request: Request, exc: TicketAlreadyExistsError):
+        logger.warning("Ticket not found for user: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={
+                "message":"Ticket not found."
+            }
+        )
+    
+    @app.exception_handler(TicketRepositoryError)
+    async def ticket_common_exception_handler(request: Request, exc: TicketRepositoryError):
+        logger.warning("Ticket repository error: %s | URL: %s | IP: %s", 
+                    str(exc), request.url, request.client.host)
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "message":"An error occured during ordering ticket(s). Our admins are working on it."
             }
         )
     

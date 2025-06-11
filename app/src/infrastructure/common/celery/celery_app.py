@@ -1,5 +1,5 @@
 from celery import Celery
-from src.infrastructure.redis.redis_pool import REDIS_URL
+from src.infrastructure.common.redis.redis_pool import REDIS_URL
 
 celery_app = Celery(
     "celery_worker",  
@@ -13,4 +13,7 @@ celery_app.conf.update(
     result_serializer="json",
     timezone="Europe/Moscow",
     enable_utc=True,
+    include=[
+        'src.infrastructure.auth.celery.email',
+    ]
 )

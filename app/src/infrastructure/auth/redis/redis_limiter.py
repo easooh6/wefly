@@ -1,5 +1,5 @@
 import redis.asyncio as redis
-from .redis_pool import get_redis_client
+from src.infrastructure.common.redis.redis_pool import get_redis_client
 from fastapi import Depends
 
 

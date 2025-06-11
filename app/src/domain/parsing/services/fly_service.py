@@ -45,6 +45,7 @@ class FlyService:
                 price_light = None
                 price_optimal = None
                 price_comfort = None
+                flight_id = str(flight_id)
                 if len(price_list) > 0 and price_list[0].get('price'):
                     try:
                         price_light = int(float(price_list[0].get('price')))
@@ -161,7 +162,7 @@ class FlyService:
                             break  # ✅ Нашли цены для этого рейса, выходим
                     
                     text_dict = {
-                        'id': flight_id,
+                        'id': flight_id_str,
                         'name': name,
                         'racenumber': race_number,
 

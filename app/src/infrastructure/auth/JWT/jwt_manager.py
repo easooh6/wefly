@@ -1,8 +1,8 @@
 import jwt
 from datetime import datetime, timedelta
-from src.infrastructure.JWT.jwt_settings import jwt_settings
+from .jwt_settings import jwt_settings
 from src.domain.auth.dto.domain.jwt import TokenDTO
-from src.domain.auth.exceptions.exceptions_jwt import InvalidPayloadError,ExpiredCredentialError, CredentialError
+from src.domain.auth.exceptions.jwt import InvalidPayloadError,ExpiredCredentialError, CredentialError
 import logging
 
 logger = logging.getLogger('wefly.jwt')
@@ -56,6 +56,7 @@ class JWTManager:
 
     def refresh_access_token(self,token: str) -> str:
         payload = self.decode_token(token, expected_token='refresh')
+        payload.token_type = 'access'
         new_access = self.create_access_token(payload)
         return new_access
 

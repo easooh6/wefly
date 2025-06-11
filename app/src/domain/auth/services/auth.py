@@ -4,18 +4,18 @@ from src.domain.auth.dto.domain.user_auth import UserAuthDTO
 from src.infrastructure.db.repositories.user_crud import UserCRUD
 from src.domain.auth.utils.hasher import verify_hash
 from fastapi import Depends
-from src.domain.auth.exceptions.exceptions_hash import WrongPasswordError
-from src.domain.auth.exceptions.exceptions_db import UserNotFound
-from src.infrastructure.JWT.jwt_manager import JWTManager
+from src.domain.auth.exceptions.hash import WrongPasswordError
+from src.domain.auth.exceptions.db import UserNotFound
+from src.infrastructure.auth.JWT.jwt_manager import JWTManager
 from src.domain.auth.dto.domain.jwt import TokenDTO
 from src.infrastructure.db.repositories.refresh_crud import RefreshTokenCRUD
 from src.domain.auth.dto.domain.refresh import RefreshTokenDTO
 from src.infrastructure.db.models.refresh_model import RefreshToken
 from ..utils.hasher import hash_token
 from datetime import datetime, timedelta
-from src.infrastructure.JWT.jwt_settings import jwt_settings
+from src.infrastructure.auth.JWT.jwt_settings import jwt_settings
 from src.domain.auth.dto.request.logout import LogoutDTO
-from src.domain.auth.exceptions.exceptions_jwt import RefreshNotFoundError
+from src.domain.auth.exceptions.jwt import RefreshNotFoundError
 import logging
 
 logger = logging.getLogger("wefly.auth")

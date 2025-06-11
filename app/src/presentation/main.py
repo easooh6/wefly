@@ -6,7 +6,7 @@ from src.presentation.middleware.error_handler import setup_exception_handler
 from slowapi import _rate_limit_exceeded_handler, Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
-from src.infrastructure.logging.logger_config import setup_logging
+from src.infrastructure.common.logging.logger_config import setup_logging
 limiter = Limiter(key_func=get_remote_address)
 logger = setup_logging()
 
