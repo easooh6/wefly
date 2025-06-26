@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from src.presentation.routers.auth.auth import router as auth_router
+#from src.presentation.routers.auth.auth import router as auth_router
 from src.presentation.routers.user.user_routes import router as user_router
-from src.presentation.routers.search.search import router as search_router
+#from src.presentation.routers.search.search import router as search_router
 from src.presentation.middleware.error_handler import setup_exception_handler
 from slowapi import _rate_limit_exceeded_handler, Limiter
 from slowapi.errors import RateLimitExceeded
@@ -24,9 +24,9 @@ setup_exception_handler(app)
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Подключение роутеров
-app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
+#app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 app.include_router(user_router, prefix="/user", tags=["User Profile"])
-app.include_router(search_router, prefix="/search", tags=["Search"])
+#app.include_router(search_router, prefix="/search", tags=["Search"])
 
 @app.on_event("shutdown")
 async def shutdown_event():

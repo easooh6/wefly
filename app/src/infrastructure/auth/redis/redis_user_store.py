@@ -3,6 +3,7 @@ from fastapi import Depends
 from src.infrastructure.common.redis.redis_pool import get_redis_client
 from src.domain.auth.dto.request.user_create import UserCreateDTO
 import logging
+import redis.asyncio as redis
 
 logger = logging.getLogger()
 
@@ -12,7 +13,7 @@ class RedisUserStore:
 
     _USER_PREFIX = "user_data:"
     
-    def __init__(self, redis = Depends(get_redis_client)):
+    def __init__(self, redis: redis.Redis):
         self.redis = redis
     
     async def save_user_data(self, user: UserCreateDTO):

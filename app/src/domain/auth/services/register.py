@@ -1,6 +1,5 @@
 from src.infrastructure.auth.celery.email import send_verification_email
 from src.domain.auth.dto.response.created_user import CreatedUserDTO
-from fastapi import Depends
 from .verify_email import VerifyEmailCode
 from src.infrastructure.db.repositories.user_crud import UserCRUD
 from src.domain.auth.dto.request.verify_code import VerifyCodeDTO
@@ -15,9 +14,9 @@ logger = logging.getLogger('wefly.register')
 
 class RegisterService:
 
-    def __init__(self, email_service: VerifyEmailCode = Depends()
-        , user: UserCRUD = Depends(),
-        redis: RedisUserStore = Depends()):
+    def __init__(self, email_service: VerifyEmailCode
+        , user: UserCRUD,
+        redis: RedisUserStore):
         self.email_service = email_service
         self.user = user
         self.redis = redis

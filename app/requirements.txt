@@ -4,7 +4,7 @@ python-multipart
 sqlalchemy
 alembic
 asyncpg
-python-jose[cryptography]
+
 passlib[bcrypt]
 PyJWT
 pydantic

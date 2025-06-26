@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 class UserCRUD:
     
-    def __init__(self, db: AsyncSession = Depends(get_db_session)):
+    def __init__(self, db: AsyncSession):
         self.db = db
 
     async def add_user(self, user: User) -> User:

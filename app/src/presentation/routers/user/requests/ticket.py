@@ -4,9 +4,9 @@ from typing import Optional, List, Dict, Any
 
 class UserTicketRequest(BaseModel):
 
-    id: str | None = None
-    name: str | None = None
-    racenumber: str | None = None  
+    id: str
+    name: str
+    racenumber: str   
 
     departuredate: datetime | None = None
     departuretime: time | None = None

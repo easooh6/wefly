@@ -5,7 +5,7 @@ from typing import Optional, List, Dict, Any
 class UserTicketResponse(BaseModel):
 
     internal_id: int
-    id: str | None = None
+    id: str 
     user_id: int
     name: str | None = None
     racenumber: str | None = None  

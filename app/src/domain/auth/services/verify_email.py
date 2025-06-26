@@ -7,17 +7,18 @@ from src.domain.auth.exceptions.email import WrongVerificationCodeError, Verific
 
 class VerifyEmailCode:
 
-    def __init__(self, redis: RedisLimiter = Depends()):
+    def __init__(self, redis: RedisLimiter):
         self.redis = redis
 
 
     async def verify_code(self, user: VerifyCodeDTO) -> EmailCodeDTO:
         code = await self.redis.get_code(user.email)
-        if code != user.code:
-            raise WrongVerificationCodeError
 
         if code is None:
             raise VerificationCodeTimeExceeded
+        
+        if code != user.code:
+            raise WrongVerificationCodeError
         
         await self.redis.delete_code(user.email)
         

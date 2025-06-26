@@ -11,8 +11,8 @@ from src.infrastructure.db.repositories.user_crud import UserCRUD
 
 class EmailService:
 
-    def __init__(self, user: RedisUserStore = Depends(), limiter: RedisLimiter = Depends(),
-                 crud: UserCRUD = Depends()):
+    def __init__(self, user: RedisUserStore, limiter: RedisLimiter,
+                 crud: UserCRUD):
         self.limiter = limiter
         self.user = user
         self.crud = crud

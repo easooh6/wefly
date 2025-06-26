@@ -1,15 +1,15 @@
 import redis.asyncio as redis
 from src.infrastructure.common.redis.redis_pool import get_redis_client
 from fastapi import Depends
-
+import asyncio
 
 class RedisLimiter():
 
     _CODE_EXPIRATION = 300
     _RATE_LIMIT = 3
 
-    def __init__(self, redis = Depends(get_redis_client)):
-        self.redis = redis
+    def __init__(self, redis_client : redis.Redis):
+        self.redis = redis_client
 
     async def save_code(self,email,code):
         await self.redis.set(email,code,ex=self._CODE_EXPIRATION)
@@ -45,3 +45,10 @@ class RedisLimiter():
             return True
         elif int(request) >= self._RATE_LIMIT:
             return False
+async def main():
+    client = await get_redis_client()
+    ex = RedisLimiter(client)
+    code = await ex.get_code('aboba')
+    print(code)
+
+asyncio.run(main())
