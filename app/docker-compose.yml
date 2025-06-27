@@ -22,6 +22,28 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  postgres_test:
+    image: postgres:15-alpine
+    container_name: wefly_postgres_test
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_TEST_NAME}
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASS}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - wefly_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_TEST_USER} -d ${DB_TEST_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
 
   # Redis Cache & Message Broker
   redis:
@@ -85,6 +107,8 @@ services:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      postgres_test:
         condition: service_healthy
     networks:
       - wefly_network
@@ -152,6 +176,7 @@ services:
 
 volumes:
   postgres_data:
+  postgres_test_data:
   redis_data:
 
 networks:
