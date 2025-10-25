@@ -1,4 +1,4 @@
-# ✈️ WeFly - AI-Powered Flight Booking Platform
+**✈️ WeFly - AI-Powered Flight Booking Platform**
 
 ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)
@@ -8,109 +8,111 @@
 ![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)
 ![Coverage](https://img.shields.io/badge/coverage-70%25-yellowgreen.svg)
 
-> Современная платформа для поиска и бронирования авиабилетов с уникальной AI-интеграцией для голосового поиска
+🎯 Project Features
+🚀 Unique Capabilities:
+🎤 AI Voice Search - ticket search via voice commands (Google Gemini)
 
----
+🔄 Asynchronous Parsing - high-performance data collection from airline APIs
 
-## 🎯 Особенности проекта
+🔐 Full Authentication - JWT + Refresh tokens, email verification
 
-### 🚀 Уникальные возможности:
-- 🎤 **AI голосовой поиск** - поиск билетов через голосовые команды (Google Gemini)
-- 🔄 **Асинхронный парсинг** - высокопроизводительный сбор данных с API авиакомпаний
-- 🔐 **Полная аутентификация** - JWT + Refresh токены, email верификация
-- 📊 **Real-time данные** - актуальная информация о рейсах
-- 🧪 **Комплексное тестирование** - 70%+ покрытие кода
+📊 Real-time Data - up-to-date flight information
 
-### 🏗️ Архитектура:
-- ✅ **Clean Architecture** - разделение на domain/infrastructure/presentation
-- ✅ **DDD подход** - Domain-Driven Design
-- ✅ **SOLID принципы** - поддерживаемый и расширяемый код
-- ✅ **Dependency Injection** - слабая связанность компонентов
+🧪 Comprehensive Testing - 70%+ code coverage
 
----
+🏗️ Architecture:
+✅ Clean Architecture - separation into domain/infrastructure/presentation
 
-## 🛠️ Технологический стек
+✅ DDD Approach - Domain-Driven Design
 
-### Backend:
-- **Python 3.12** - современная версия языка
-- **FastAPI** - высокопроизводительный async веб-фреймворк
-- **SQLAlchemy 2.0** - async ORM для работы с БД
-- **Pydantic** - валидация данных и type safety
-- **Celery** - фоновые задачи и email рассылка
+✅ SOLID Principles - maintainable and extensible code
 
-### Databases:
-- **PostgreSQL 15** - основная реляционная БД
-- **Redis 7** - кэширование, rate limiting, очереди задач
-- **Alembic** - миграции базы данных
+✅ Dependency Injection - weak component coupling
 
-### AI/ML:
-- **Google Gemini API** - обработка голосовых команд
-- **Audio processing** - работа с аудио файлами
+**🛠️ Technology Stack**
+Backend:
+Python 3.12 - modern language version
 
-### DevOps:
-- **Docker** + **Docker Compose** - контейнеризация
-- **GitLab CI/CD** - автоматизация тестирования и деплоя
-- **Uvicorn** - ASGI сервер с uvloop
+FastAPI - high-performance async web framework
 
-### Testing:
-- **Pytest** - фреймворк для тестирования
-- **pytest-asyncio** - тестирование async кода
-- **pytest-cov** - покрытие кода тестами
-- **httpx** - async HTTP клиент для API тестов
+SQLAlchemy 2.0 - async ORM for database operations
 
----
+Pydantic - data validation and type safety
 
-## 📦 Структура проекта
+Celery - background tasks and email distribution
 
-```
+Databases:
+PostgreSQL 15 - primary relational database
+
+Redis 7 - caching, rate limiting, task queues
+
+Alembic - database migrations
+
+AI/ML:
+Google Gemini API - processing voice commands
+
+Audio processing - handling audio files
+
+DevOps:
+Docker + Docker Compose - containerization
+
+GitLab CI/CD - automated testing and deployment
+
+Uvicorn - ASGI server with uvloop
+
+Testing:
+Pytest - testing framework
+
+pytest-asyncio - testing async code
+
+pytest-cov - code coverage reporting
+
+httpx - async HTTP client for API tests
+
+📦 Project Structure
 wefly/
 ├── app/
-│   ├── src/
-│   │   ├── domain/              # Бизнес-логика
-│   │   │   ├── auth/            # Аутентификация
-│   │   │   ├── user/            # Пользовательские данные
-│   │   │   ├── parsing/         # Парсинг авиакомпаний
-│   │   │   └── ai/              # AI сервисы
-│   │   ├── infrastructure/      # Внешние зависимости
-│   │   │   ├── db/              # База данных
-│   │   │   ├── auth/            # Redis, JWT, Email
-│   │   │   ├── parser/          # Веб-парсер
-│   │   │   └── ai/              # AI интеграция
-│   │   └── presentation/        # API слой
-│   │       ├── routers/         # Endpoints
-│   │       └── di/              # Dependency Injection
-│   ├── tests/
-│   │   ├── unit/                # Unit тесты
-│   │   ├── integration/         # Integration тесты
-│   │   └── presentation/        # API тесты
-│   ├── alembic/                 # Миграции БД
-│   ├── logs/                    # Логи приложения
-│   └── docker-compose.yml       # Docker конфигурация
-└── .gitlab-ci.yml               # CI/CD pipeline
-```
+│   ├── src/
+│   │   ├── domain/              # Business Logic
+│   │   │   ├── auth/            # Authentication
+│   │   │   ├── user/            # User Data
+│   │   │   ├── parsing/         # Airline Parsing
+│   │   │   └── ai/              # AI Services
+│   │   ├── infrastructure/      # External Dependencies
+│   │   │   ├── db/              # Database
+│   │   │   ├── auth/            # Redis, JWT, Email
+│   │   │   ├── parser/          # Web Parser
+│   │   │   └── ai/              # AI Integration
+│   │   └── presentation/        # API Layer
+│   │       ├── routers/         # Endpoints
+│   │       └── di/              # Dependency Injection
+│   ├── tests/
+│   │   ├── unit/                # Unit Tests
+│   │   ├── integration/         # Integration Tests
+│   │   └── presentation/        # API Tests
+│   ├── alembic/                 # DB Migrations
+│   ├── logs/                    # Application Logs
+│   └── docker-compose.yml       # Docker Configuration
+└── .gitlab-ci.yml               # CI/CD Pipeline
+🚀 Quick Start
+Prerequisites:
+Docker and Docker Compose
 
----
+Python 3.12+ (for local development)
 
-## 🚀 Быстрый старт
+Git
 
-### Предварительные требования:
-- Docker и Docker Compose
-- Python 3.12+ (для локальной разработки)
-- Git
+1️⃣ Clone the Repository:
+Bash
 
-### 1️⃣ Клонирование репозитория:
-```bash
 git clone https://github.com/yourusername/wefly.git
 cd wefly/app
-```
+2️⃣ Configure Environment Variables:
+Bash
 
-### 2️⃣ Настройка переменных окружения:
-```bash
 cp .env.example .env
-```
+Edit the .env file:
 
-Отредактируйте `.env` файл:
-```env
 # Database
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
@@ -137,240 +139,230 @@ EMAIL_PASSWORD=your-app-password
 
 # AI
 GEMINI_API_KEY=your-gemini-api-key
-```
+3️⃣ Run with Docker:
+Bash
 
-### 3️⃣ Запуск с Docker:
-```bash
-# Собрать и запустить все сервисы
+# Build and run all services
 docker-compose up -d --build
 
-# Проверить статус
+# Check status
 docker-compose ps
 
-# Просмотр логов
+# View logs
 docker-compose logs -f api
-```
+4️⃣ Apply Migrations:
+Bash
 
-### 4️⃣ Применение миграций:
-```bash
 docker-compose exec api alembic upgrade head
-```
+5️⃣ Check Functionality:
+Open in your browser:
 
-### 5️⃣ Проверка работы:
-Откройте в браузере:
-- API документация: http://localhost:8000/docs
-- Health check: http://localhost:8000/health
+API Documentation: http://localhost:8000/docs
 
----
+Health Check: http://localhost:8000/health
 
-## 🧪 Тестирование
+🧪 Testing
+Run All Tests:
+Bash
 
-### Запуск всех тестов:
-```bash
-# В Docker контейнере
+# Inside Docker container
 docker-compose exec api pytest tests/ -v
 
-# Локально
+# Locally
 pytest tests/ -v
-```
+Run by Test Type:
+Bash
 
-### Запуск по типам тестов:
-```bash
-# Unit тесты
+# Unit tests
 pytest tests/unit/ -v
 
-# Integration тесты
+# Integration tests
 pytest tests/integration/ -v
 
-# Presentation тесты
+# Presentation tests
 pytest tests/presentation/ -v
-```
+Code Coverage:
+Bash
 
-### Покрытие кода:
-```bash
-# С отчетом покрытия
+# With coverage report
 pytest tests/ --cov=src --cov-report=html
 
-# Просмотр HTML отчета
+# View HTML report
 open htmlcov/index.html
-```
+Run Specific Test:
+Bash
 
-### Запуск конкретного теста:
-```bash
 pytest tests/unit/domain/auth/test_register.py::test_register_user_success -v
-```
+📡 API Endpoints
+Authentication (/auth):
+POST /auth/send-verification
+Send verification code to email
 
----
+JSON
 
-## 📡 API Endpoints
-
-### Authentication (`/auth`):
-
-#### POST `/auth/send-verification`
-Отправка кода верификации на email
-```json
 {
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "secure_password123"
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secure_password123"
 }
-```
+POST /auth/registration
+Register a new user
 
-#### POST `/auth/registration`
-Регистрация нового пользователя
-```json
+JSON
+
 {
-  "email": "john@example.com",
-  "code": 123456
+  "email": "john@example.com",
+  "code": 123456
 }
-```
+POST /auth/login
+User authentication
 
-#### POST `/auth/login`
-Аутентификация пользователя
-```json
+JSON
+
 {
-  "email": "john@example.com",
-  "password": "secure_password123"
+  "email": "john@example.com",
+  "password": "secure_password123"
 }
-```
-**Response:**
-```json
+Response:
+
+JSON
+
 {
-  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
-  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGc..."
 }
-```
+POST /auth/refresh
+Refresh access token
 
-#### POST `/auth/refresh`
-Обновление access токена
-```json
+JSON
+
 {
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
 }
-```
+POST /auth/logout
+Log out of the system
 
-#### POST `/auth/logout`
-Выход из системы
-```json
+JSON
+
 {
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
 }
-```
+User (/user):
+GET /user/tickets
+Retrieve user's tickets (requires authorization)
 
-### User (`/user`):
+Bash
 
-#### GET `/user/tickets`
-Получение билетов пользователя (требует авторизации)
-```bash
 curl -H "Authorization: Bearer <access_token>" http://localhost:8000/user/tickets
-```
+POST /user/add_ticket
+Add a ticket to favorites (requires authorization)
 
-#### POST `/user/add_ticket`
-Добавление билета в избранное (требует авторизации)
-```json
+JSON
+
 {
-  "id": "flight-123",
-  "name": "Moscow - New York",
-  "racenumber": "SU100",
-  "departuredate": "2025-06-30",
-  "departuretime": "10:00",
-  "originport": "SVO",
-  "origincityName": "Moscow",
-  "arrivaldate": "2025-06-30",
-  "arrivaltime": "14:00",
-  "destinationport": "JFK",
-  "destinationcityName": "New York",
-  "flighttime": "10h",
-  "price_light": 30000,
-  "price_optimal": 45000,
-  "price_comfort": 60000
+  "id": "flight-123",
+  "name": "Moscow - New York",
+  "racenumber": "SU100",
+  "departuredate": "2025-06-30",
+  "departuretime": "10:00",
+  "originport": "SVO",
+  "origincityName": "Moscow",
+  "arrivaldate": "2025-06-30",
+  "arrivaltime": "14:00",
+  "destinationport": "JFK",
+  "destinationcityName": "New York",
+  "flighttime": "10h",
+  "price_light": 30000,
+  "price_optimal": 45000,
+  "price_comfort": 60000
 }
-```
+Search (/search):
+POST /search/search
+One-way ticket search
 
-### Search (`/search`):
+JSON
 
-#### POST `/search/search`
-Поиск билетов в одну сторону
-```json
 {
-  "date[0]": "30.12.2025",
-  "originport": "SVO",
-  "destinationport": "JFK"
+  "date[0]": "30.12.2025",
+  "originport": "SVO",
+  "destinationport": "JFK"
 }
-```
+POST /search/search_round
+Round-trip ticket search
 
-#### POST `/search/search_round`
-Поиск билетов туда-обратно
-```json
+JSON
+
 {
-  "date[0]": "30.12.2025",
-  "date[1]": "10.01.2026",
-  "originport": "SVO",
-  "destinationport": "JFK"
+  "date[0]": "30.12.2025",
+  "date[1]": "10.01.2026",
+  "originport": "SVO",
+  "destinationport": "JFK"
 }
-```
+POST /search/search_voice
+🎤 AI Voice Search (unique feature!)
 
-#### POST `/search/search_voice`
-🎤 AI голосовой поиск (уникальная фича!)
-```bash
+Bash
+
 curl -X POST http://localhost:8000/search/search_voice \
-  -H "Authorization: Bearer <access_token>" \
-  -F "audio=@voice_command.mp3"
-```
+  -H "Authorization: Bearer <access_token>" \
+  -F "audio=@voice_command.mp3"
+Example Voice Command:
 
-Пример голосовой команды:
-> "Найди мне билеты из Москвы в Нью-Йорк на 30 декабря"
+"Find me tickets from Moscow to New York for December 30th"
 
----
+🔐 Security
+Implemented Measures:
+✅ JWT Authentication with access and refresh tokens
 
-## 🔐 Безопасность
+✅ Bcrypt Hashing for passwords
 
-### Реализованные меры:
-- ✅ **JWT аутентификация** с access и refresh токенами
-- ✅ **Bcrypt хеширование** паролей
-- ✅ **Email верификация** при регистрации
-- ✅ **Rate limiting** (3 запроса/минуту на регистрацию)
-- ✅ **CORS настройки**
-- ✅ **Валидация входных данных** через Pydantic
-- ✅ **SQL injection защита** через ORM
+✅ Email Verification upon registration
 
-### Переменные окружения:
-Все чувствительные данные хранятся в `.env` файле и не коммитятся в репозиторий.
+✅ Rate Limiting (3 requests/minute for registration)
 
----
+✅ CORS Configuration
 
-## 📊 Мониторинг и логирование
+✅ Input Data Validation via Pydantic
 
-### Логи:
-```bash
-# Просмотр логов API
+✅ SQL Injection Protection via ORM
+
+Environment Variables:
+All sensitive data is stored in the .env file and is not committed to the repository.
+
+📊 Monitoring and Logging
+Logs:
+Bash
+
+# View API logs
 docker-compose logs -f api
 
-# Просмотр логов Celery worker
+# View Celery worker logs
 docker-compose logs -f celery_worker
 
-# Просмотр логов PostgreSQL
+# View PostgreSQL logs
 docker-compose logs -f postgres
-```
+Health Checks:
+API: GET /health
 
-### Health checks:
-- API: `GET /health`
-- Database: автоматические health checks в Docker
-- Redis: автоматические health checks в Docker
+Database: automated health checks in Docker
 
----
+Redis: automated health checks in Docker
 
-## 🔄 CI/CD Pipeline
+🔄 CI/CD Pipeline
+GitLab CI Stages:
+Build - building Docker images
 
-### GitLab CI стадии:
-1. **Build** - сборка Docker образов
-2. **Test** - запуск unit/integration/presentation тестов
-3. **Security** - сканирование безопасности
-4. **Deploy** - деплой на staging/production
+Test - running unit/integration/presentation tests
 
-### Автоматизация:
-- ✅ Тесты запускаются на каждый push
-- ✅ Coverage отчеты генерируются автоматически
-- ✅ Security scans для зависимостей
-- ✅ Автоматический cleanup после тестов
+Security - security scanning
 
+Deploy - deployment to staging/production
+
+Automation:
+✅ Tests run on every push
+
+✅ Coverage reports are automatically generated
+
+✅ Security scans for dependencies
+
+✅ Automated cleanup after tests
