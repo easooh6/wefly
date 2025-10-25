@@ -69,31 +69,6 @@ pytest-cov - code coverage reporting
 
 httpx - async HTTP client for API tests
 
-📦 Project Structure
-wefly/
-├── app/
-│   ├── src/
-│   │   ├── domain/              # Business Logic
-│   │   │   ├── auth/            # Authentication
-│   │   │   ├── user/            # User Data
-│   │   │   ├── parsing/         # Airline Parsing
-│   │   │   └── ai/              # AI Services
-│   │   ├── infrastructure/      # External Dependencies
-│   │   │   ├── db/              # Database
-│   │   │   ├── auth/            # Redis, JWT, Email
-│   │   │   ├── parser/          # Web Parser
-│   │   │   └── ai/              # AI Integration
-│   │   └── presentation/        # API Layer
-│   │       ├── routers/         # Endpoints
-│   │       └── di/              # Dependency Injection
-│   ├── tests/
-│   │   ├── unit/                # Unit Tests
-│   │   ├── integration/         # Integration Tests
-│   │   └── presentation/        # API Tests
-│   ├── alembic/                 # DB Migrations
-│   ├── logs/                    # Application Logs
-│   └── docker-compose.yml       # Docker Configuration
-└── .gitlab-ci.yml               # CI/CD Pipeline
 🚀 Quick Start
 Prerequisites:
 Docker and Docker Compose
