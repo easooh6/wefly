@@ -1,13 +1,5 @@
 # ✈️ WeFly - AI-Powered Flight Booking Platform
 
-![Python](https://img.shields.io/badge/python-3.12-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
-![Redis](https://img.shields.io/badge/Redis-7-red.svg)
-![Docker](https://img.shields.io/badge/Docker-ready-blue.svg)
-![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)
-![Coverage](https://img.shields.io/badge/coverage-70%25-yellowgreen.svg)
-
 > Современная платформа для поиска и бронирования авиабилетов с уникальной AI-интеграцией для голосового поиска
 
 ---
